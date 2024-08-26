@@ -12,7 +12,7 @@ pd.set_option('display.float_format', lambda x: '%.2f' % x)
 pd.set_option('display.width', 200)
 
 
-df = pd.read_csv("WIKIMEDIA_Text_Visualization/wiki_data.csv", index_col=0)
+df = pd.read_csv("WIKIMEDIA_Text_Visualization/Data/wiki_data.csv", index_col=0)
 df.head()
 df = df[:2000]
 

@@ -1,9 +1,9 @@
+from sklearn.pipeline import Pipeline
+from sklearn.base import TransformerMixin
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from nltk.corpus import stopwords
-from sklearn.pipeline import Pipeline
-from sklearn.base import TransformerMixin
 
 class TextPreprocessor(TransformerMixin):
     def __init__(self, barplot=False, wordcloud=False):
@@ -30,14 +30,14 @@ class TextPreprocessor(TransformerMixin):
 
         if self.barplot:
             # Calculating Term Frequencies
-            tf = X.apply(lambda x: pd.Series(x.split(" ")).value_counts()).sum(axis=0).reset_index()
+            tf = pd.Series(" ".join(X).split()).value_counts().reset_index()
             tf.columns = ["words", "tf"]
             tf[tf["tf"] > 2000].plot.bar(x="words", y="tf")
             plt.show()
 
         if self.wordcloud:
             # Generating Wordcloud
-            combined_text = " ".join(i for i in X)
+            combined_text = " ".join(X)
             wordcloud = WordCloud(max_font_size=50, max_words=100, background_color="white").generate(combined_text)
             plt.figure()
             plt.imshow(wordcloud, interpolation="bilinear")
@@ -46,15 +46,7 @@ class TextPreprocessor(TransformerMixin):
 
         return X
 
-
-
-
+# Define the pipeline
 text_pipeline = Pipeline([
     ('preprocess', TextPreprocessor(barplot=True, wordcloud=True))
 ])
-
-
-
-processed_text = text_pipeline.fit_transform(df['text'])
-
-
