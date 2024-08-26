@@ -24,6 +24,8 @@ pd.set_option('display.width',200)
 df = pd.read_excel("KOZMOS_Sentiment_Analysis/amazon.xlsx")
 df.info()
 df.head()
+
+
 df.tail()
 
 
